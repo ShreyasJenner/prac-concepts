@@ -180,7 +180,7 @@ void show_mp3FrameHeader(uint8_t *bytes) {
  * the header of an mp3 frame
  * It returns a struct containing info about the frame 
  */
-void get_mp3FrameHeader(uint8_t *bytes, struct mp3_frame_header_data mfhd) {
+void get_mp3FrameHeader(uint8_t *bytes, struct mp3_frame_header_data *mfhd) {
     /* verify if mp3 header exists */
     if(!verify_mp3Header(bytes)) {
         printf("invalid mp3 frame header\n"); 
@@ -216,30 +216,30 @@ void get_mp3FrameHeader(uint8_t *bytes, struct mp3_frame_header_data mfhd) {
 
 
     /* allocate space for struct and store data */
-    mfhd.v_id = v_id;
-    mfhd.layer = mp3_layer;
-    mfhd.crc = crc;
-    mfhd.bitrate = bitrate;
-    mfhd.samplerate = samp_rate;
-    mfhd.padding = pad;
-    strcpy(mfhd.channel, chan);
-    mfhd.copyright = copyrit;
-    mfhd.original = orig;
-    strcpy(mfhd.emphasis, emph);
+    mfhd->v_id = v_id;
+    mfhd->layer = mp3_layer;
+    mfhd->crc = crc;
+    mfhd->bitrate = bitrate;
+    mfhd->samplerate = samp_rate;
+    mfhd->padding = pad;
+    strcpy(mfhd->channel, chan);
+    mfhd->copyright = copyrit;
+    mfhd->original = orig;
+    strcpy(mfhd->emphasis, emph);
 
     /* store derived data */
-    if(mfhd.layer==3 || mfhd.layer==2) {
-        mfhd.frame_size = 1152;
-        mfhd.frame_length = 144*mfhd.bitrate*1000/mfhd.samplerate+mfhd.padding;
+    if(mfhd->layer==3 || mfhd->layer==2) {
+        mfhd->frame_size = 1152;
+        mfhd->frame_length = 144*mfhd->bitrate*1000/mfhd->samplerate+mfhd->padding;
     }
-    else if(mfhd.layer==1) {
-        mfhd.frame_size = 384;
-        mfhd.frame_length = (12*mfhd.bitrate*1000/mfhd.samplerate+(4*mfhd.padding))*4;
+    else if(mfhd->layer==1) {
+        mfhd->frame_size = 384;
+        mfhd->frame_length = (12*mfhd->bitrate*1000/mfhd->samplerate+(4*mfhd->padding))*4;
     }
 
     if(!strcmp(chan,"stereo") || !strcmp(chan,"joint(stereo)") || 
                 !strcmp(chan,"dual(stereo)"))
-        mfhd.channel_no = 2;
+        mfhd->channel_no = 2;
     else
-        mfhd.channel_no = 1;
+        mfhd->channel_no = 1;
 }

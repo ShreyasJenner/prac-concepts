@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
 
     /* temp code */
     int itr = 0;
-    int fd2 = open("data/temp.mp3", O_WRONLY|O_CREAT, 0666);
+    int fd2 = open(argv[2], O_WRONLY|O_CREAT, 0666);
     if(fd2<0) {
         printf("fd2 error\n");
         exit(1);
@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
 
     // print mp3 frame details and store in struct
     show_mp3FrameHeader(frame);
-    get_mp3FrameHeader(frame, mfhd);
+    get_mp3FrameHeader(frame, &mfhd);
 
 
     /* temp code */
