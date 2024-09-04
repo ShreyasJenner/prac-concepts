@@ -1,5 +1,6 @@
 /*
  * The program and all sub-programs assume little endianess in any read data
+ * MAKE PROGRAM ENDIAN INDEPENDENT
  */
 
 #include <endian.h>
@@ -11,6 +12,7 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
+#include "../include/structs.h"
 #include "../include/mp3_lut.h"
 
 
@@ -61,7 +63,7 @@ int reverse_bit_order(int byte) {
 int main(int argc, char **argv) {
     int fd, bytes, i, tmp, flag, pos;
     uint8_t frame[32], byte;
-    struct mp3_frame_data *mfd;
+    struct mp3_frame_header_data *mfd;
 
     fd = open(argv[1], O_RDONLY, 0);
     if(fd < 0) {
@@ -92,7 +94,6 @@ int main(int argc, char **argv) {
 
     /* temp code */
     int itr = 0;
-    /* temp code */
     int fd2 = open("data/temp.mp3", O_WRONLY|O_CREAT, 0666);
     if(fd2<0) {
         printf("fd2 error\n");
@@ -105,8 +106,8 @@ int main(int argc, char **argv) {
     }
 
     // print mp3 frame details and store in struct
-    mp3_frame_lookup(frame);
-    mfd = mp3_frame_store(frame);
+    show_mp3FrameHeader(frame);
+    mfd = get_mp3FrameHeader(frame);
 
 
     /* temp code */
