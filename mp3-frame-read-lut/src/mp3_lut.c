@@ -180,15 +180,14 @@ void show_mp3FrameHeader(uint8_t *bytes) {
  * the header of an mp3 frame
  * It returns a struct containing info about the frame 
  */
-struct mp3_frame_header_data *get_mp3FrameHeader(uint8_t *bytes) {
+void get_mp3FrameHeader(uint8_t *bytes, struct mp3_frame_header_data mfhd) {
     /* verify if mp3 header exists */
     if(!verify_mp3Header(bytes)) {
         printf("invalid mp3 frame header\n"); 
         exit(1);
     }
 
-    struct mp3_frame_header_data *mfd;
-
+    /* Declaration */
     float v_id;
     int mp3_layer;
     bool crc;
@@ -217,33 +216,30 @@ struct mp3_frame_header_data *get_mp3FrameHeader(uint8_t *bytes) {
 
 
     /* allocate space for struct and store data */
-    mfd = malloc(sizeof(struct mp3_frame_header_data));
-    mfd->v_id = v_id;
-    mfd->layer = mp3_layer;
-    mfd->crc = crc;
-    mfd->bitrate = bitrate;
-    mfd->samplerate = samp_rate;
-    mfd->padding = pad;
-    strcpy(mfd->channel, chan);
-    mfd->copyright = copyrit;
-    mfd->original = orig;
-    strcpy(mfd->emphasis, emph);
+    mfhd.v_id = v_id;
+    mfhd.layer = mp3_layer;
+    mfhd.crc = crc;
+    mfhd.bitrate = bitrate;
+    mfhd.samplerate = samp_rate;
+    mfhd.padding = pad;
+    strcpy(mfhd.channel, chan);
+    mfhd.copyright = copyrit;
+    mfhd.original = orig;
+    strcpy(mfhd.emphasis, emph);
 
     /* store derived data */
-    if(mfd->layer==3 || mfd->layer==2) {
-        mfd->frame_size = 1152;
-        mfd->frame_length = 144*mfd->bitrate*1000/mfd->samplerate+mfd->padding;
+    if(mfhd.layer==3 || mfhd.layer==2) {
+        mfhd.frame_size = 1152;
+        mfhd.frame_length = 144*mfhd.bitrate*1000/mfhd.samplerate+mfhd.padding;
     }
-    else if(mfd->layer==1) {
-        mfd->frame_size = 384;
-        mfd->frame_length = (12*mfd->bitrate*1000/mfd->samplerate+(4*mfd->padding))*4;
+    else if(mfhd.layer==1) {
+        mfhd.frame_size = 384;
+        mfhd.frame_length = (12*mfhd.bitrate*1000/mfhd.samplerate+(4*mfhd.padding))*4;
     }
 
     if(!strcmp(chan,"stereo") || !strcmp(chan,"joint(stereo)") || 
                 !strcmp(chan,"dual(stereo)"))
-        mfd->channel_no = 2;
+        mfhd.channel_no = 2;
     else
-        mfd->channel_no = 1;
-
-    return mfd;
+        mfhd.channel_no = 1;
 }
