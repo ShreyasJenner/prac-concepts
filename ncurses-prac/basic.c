@@ -1,13 +1,14 @@
 #include <ncurses.h>
 
 int main() {
-    int c;
-    initscr();
+  int c;
+  initscr();
+  keypad(stdscr, true);
 
-    printw("%d\n",getmaxx(stdscr));
-    refresh();
+  printw("%d\n", getch());
+  refresh();
 
-    getch();
-    endwin();
-    return 0;
+  getch();
+  endwin();
+  return 0;
 }
