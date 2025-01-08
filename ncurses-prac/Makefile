@@ -1,2 +1,2 @@
 all:
-	@gcc -g start_screen.c -lncurses -lpanel -lmenu -lm
+	@g++ -g basic.cpp -lncurses -lpanel -lmenu -lm
