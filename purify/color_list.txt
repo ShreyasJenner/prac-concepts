@@ -1,0 +1,1 @@
+white purification circle - #d0d2c4; rgb(222,223,212, 1)
