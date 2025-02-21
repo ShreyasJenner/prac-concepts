@@ -40,3 +40,12 @@ document.addEventListener('click', (event) => {
     //createSplatter(event.clientX, event.clientY);
 });
 
+var video = document.getElementById('myvid');
+function playvid() {
+    myvid.play();
+}
+
+function pausevid() {
+    myvid.pause()
+}
+
