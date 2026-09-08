@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package grpcgo;
+option go_package = "github.com/ShreyasJenner/grpcgo";
+
+message Msg {
+    string send_username = 1;
+    string recv_username = 2;
+
+    string msg = 3;
+}

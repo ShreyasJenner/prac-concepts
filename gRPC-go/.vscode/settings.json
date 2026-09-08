@@ -1,0 +1,5 @@
+{
+    "protobuf.protoc.path": "/usr/bin/protoc",
+    // Import paths for IntelliSense and diagnostics (recommended)
+    "protobuf.includes": ["${workspaceFolder}/proto"],
+}

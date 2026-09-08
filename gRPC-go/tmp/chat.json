@@ -1,0 +1,10 @@
+{
+  "sendUserId":  67,
+  "recvUserId":  76,
+  "msg":  {
+    "sendUsername":  "User3",
+    "recvUsername":  "User1",
+    "msg":  "welcome to reality"
+  },
+  "time":  "2026-09-08T08:23:56.531186264Z"
+}

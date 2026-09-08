@@ -1,0 +1,7 @@
+{
+    "protobuf.protoc.path": "/usr/bin/protoc",
+  // Import paths for IntelliSense and diagnostics (recommended)
+  "protobuf.includes": ["${workspaceFolder}/gRPC-go/proto"],
+  // Protoc compilation settings
+  "protobuf.protoc.options": ["--proto_path=${workspaceFolder}/gRPC-go/proto", "--go_out=${workspaceFolder}/gRPC-go/pb"],
+}

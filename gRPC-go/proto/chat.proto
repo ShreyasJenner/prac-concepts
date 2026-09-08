@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option go_package = "github.com/ShreyasJenner/grpcgo";
+package grpcgo;
+
+import "message.proto";
+import "google/protobuf/timestamp.proto";
+
+message Chatting {
+    int32 send_user_id = 1;
+    int32 recv_user_id = 2;
+    
+    Msg msg = 3;
+    google.protobuf.Timestamp time = 4;
+}
+
